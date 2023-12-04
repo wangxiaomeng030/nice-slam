@@ -107,11 +107,12 @@ class Mapper(object):
         H, W, fx, fy, cx, cy, = self.H, self.W, self.fx, self.fy, self.cx, self.cy
         X, Y, Z = torch.meshgrid(torch.linspace(self.bound[0][0], self.bound[0][1], val_shape[2]),
                                  torch.linspace(self.bound[1][0], self.bound[1][1], val_shape[1]),
-                                 torch.linspace(self.bound[2][0], self.bound[2][1], val_shape[0]))
+                                 torch.linspace(self.bound[2][0], self.bound[2][1], val_shape[0]),
+                                 indexing='ij')
 
         points = torch.stack([X, Y, Z], dim=-1).reshape(-1, 3)
         if key == 'grid_coarse':
-            mask = np.ones(val_shape[::-1]).astype(np.bool)
+            mask = np.ones(val_shape[::-1]).astype(bool)
             return mask
         points_bak = points.clone()
         c2w = c2w.cpu().numpy()

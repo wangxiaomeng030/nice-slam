@@ -115,7 +115,7 @@ def get_sample_uv(H0, H1, W0, W1, n, depth, color, device='cuda:0'):
     depth = depth[H0:H1, W0:W1]
     color = color[H0:H1, W0:W1]
     i, j = torch.meshgrid(torch.linspace(
-        W0, W1-1, W1-W0).to(device), torch.linspace(H0, H1-1, H1-H0).to(device))
+        W0, W1-1, W1-W0).to(device), torch.linspace(H0, H1-1, H1-H0).to(device),indexing='ij')
     i = i.t()  # transpose
     j = j.t()
     i, j, depth, color = select_uv(i, j, n, depth, color, device=device)
@@ -253,7 +253,7 @@ def get_rays(H, W, fx, fy, cx, cy, c2w, device):
     if isinstance(c2w, np.ndarray):
         c2w = torch.from_numpy(c2w)
     # pytorch's meshgrid has indexing='ij'
-    i, j = torch.meshgrid(torch.linspace(0, W-1, W), torch.linspace(0, H-1, H))
+    i, j = torch.meshgrid(torch.linspace(0, W-1, W), torch.linspace(0, H-1, H),indexing='ij')
     i = i.t()  # transpose
     j = j.t()
     dirs = torch.stack(

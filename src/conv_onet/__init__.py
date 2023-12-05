@@ -1,4 +1,4 @@
-from src.conv_onet import (
+from nice_slam.src.conv_onet import (
     config, models
 )
 

@@ -1,5 +1,5 @@
 import torch
-from src.common import get_rays, raw2outputs_nerf_color, sample_pdf
+from nice_slam.src.common import get_rays, raw2outputs_nerf_color, sample_pdf
 
 
 class Renderer(object):

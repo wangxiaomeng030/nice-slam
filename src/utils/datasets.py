@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import torch
 import torch.nn.functional as F
-from src.common import as_intrinsics_matrix
+from nice_slam.src.common import as_intrinsics_matrix
 from torch.utils.data import Dataset
 
 

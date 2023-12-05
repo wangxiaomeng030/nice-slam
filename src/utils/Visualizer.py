@@ -2,7 +2,7 @@ import os
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from src.common import get_camera_from_tensor
+from nice_slam.src.common import get_camera_from_tensor
 
 
 class Visualizer(object):

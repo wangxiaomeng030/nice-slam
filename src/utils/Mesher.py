@@ -5,7 +5,7 @@ import torch
 import torch.nn.functional as F
 import trimesh
 from packaging import version
-from src.utils.datasets import get_dataset
+from nice_slam.src.utils.datasets import get_dataset
 
 
 class Mesher(object):

@@ -1,14 +1,5 @@
-import yaml
 
-import sys
-import os
-script_dir = os.path.dirname(os.path.abspath(__file__))
-relative_path = "../"
-absolute_path = os.path.join(script_dir, relative_path)
-sys.path.append(absolute_path)
-
-
-from src import conv_onet
+from nice_slam.src import conv_onet
 
 
 method_dict = {

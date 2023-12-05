@@ -1,4 +1,4 @@
-from src.conv_onet import models
+from nice_slam.src.conv_onet import models
 
 
 def get_model(cfg,  nice=True):

@@ -33,3 +33,11 @@ class Logger(object):
 
         if self.verbose:
             print('Saved checkpoints at', path)
+
+    def log_eval_data(self, idx):
+        path = os.path.join(self.ckptsdir, 'eval.tar')
+        torch.save({
+            'gt_c2w_list': self.gt_c2w_list,
+            'estimate_c2w_list': self.estimate_c2w_list,
+            'idx': idx,
+        }, path, _use_new_zipfile_serialization=False)

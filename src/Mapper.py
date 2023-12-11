@@ -648,6 +648,7 @@ class Mapper(object):
                     os.system(
                         f"cp {mesh_out_file} {self.output}/mesh/{idx:05d}_mesh.ply")
                     if self.eval_rec:
+                        self.logger.log_eval_data(idx)
                         mesh_out_file = f'{self.output}/mesh/final_mesh_eval_rec.ply'
                         self.mesher.get_mesh(mesh_out_file, self.c, self.decoders, self.keyframe_dict,
                                              self.estimate_c2w_list, idx, self.device, show_forecast=False,

@@ -51,6 +51,7 @@ def draw_trajectory(queue, output, init_pose, cam_scale,
     draw_trajectory.ix = 0
     draw_trajectory.warmup = 0
     draw_trajectory.mesh = None
+    draw_trajectory.cloud = None
     draw_trajectory.frame_idx = 0
     draw_trajectory.traj_actor = None
     draw_trajectory.traj_actor_gt = None
@@ -100,6 +101,13 @@ def draw_trajectory(queue, output, init_pose, cam_scale,
                     draw_trajectory.mesh.triangle_normals = o3d.utility.Vector3dVector(
                         -np.asarray(draw_trajectory.mesh.triangle_normals))
                     vis.add_geometry(draw_trajectory.mesh)
+
+                elif data[0] == 'cloud':
+                    cloudfile = data[1]
+                    if draw_trajectory.cloud is not None:
+                        vis.remove_geometry(draw_trajectory.cloud)
+                    draw_trajectory.cloud = o3d.io.read_point_cloud(cloudfile)
+                    vis.add_geometry(draw_trajectory.cloud)
 
                 elif data[0] == 'traj':
                     i, is_gt = data[1:]
@@ -155,7 +163,7 @@ def draw_trajectory(queue, output, init_pose, cam_scale,
     vis = o3d.visualization.Visualizer()
 
     vis.register_animation_callback(animation_callback)
-    vis.create_window(window_name=output, height=1080, width=1920)
+    vis.create_window(window_name="3D show", height=1080, width=1920)
     vis.get_render_option().point_size = 4
     vis.get_render_option().mesh_show_back_face = False
 
@@ -194,6 +202,9 @@ class SLAMFrontend:
         
     def update_mesh(self, path):
         self.queue.put_nowait(('mesh', path))
+
+    def update_cloud(self, path):
+        self.queue.put_nowait(('cloud', path))
 
     def update_cam_trajectory(self, c2w_list, gt):
         self.queue.put_nowait(('traj', c2w_list, gt))
